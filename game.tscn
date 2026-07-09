@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bjsmqsg1lepfe"]
+
+[ext_resource type="PackedScene" uid="uid://cftafgf1wf681" path="res://character.tscn" id="1_80nbo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bb3q2"]
+size = Vector3(1, 0.02, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vubhu"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mwb40"]
+size = Vector3(1, 0.02, 1)
+
+[node name="Game" type="Node3D" unique_id=260947182]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1897112165]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=884077221]
+mesh = SubResource("BoxMesh_bb3q2")
+surface_material_override/0 = SubResource("StandardMaterial3D_vubhu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=318058229]
+shape = SubResource("BoxShape3D_mwb40")
+
+[node name="Character" parent="." unique_id=1046450963 instance=ExtResource("1_80nbo")]

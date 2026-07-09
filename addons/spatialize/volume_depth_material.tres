@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dqq8g0uk67qdk"]
+
+[ext_resource type="Shader" uid="uid://cjoukwkhgbjvi" path="res://addons/spatialize/volume_depth.gdshader" id="1_hgyu2"]
+
+[resource]
+render_priority = -25
+shader = ExtResource("1_hgyu2")

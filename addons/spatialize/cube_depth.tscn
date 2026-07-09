@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://801oo4p7devm"]
+
+[ext_resource type="Material" uid="uid://dqq8g0uk67qdk" path="res://addons/spatialize/volume_depth_material.tres" id="1_qxico"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mbvhy"]
+resource_local_to_scene = true
+
+[node name="CubeDepth" type="MeshInstance3D" unique_id=1421330224]
+mesh = SubResource("BoxMesh_mbvhy")
+surface_material_override/0 = ExtResource("1_qxico")

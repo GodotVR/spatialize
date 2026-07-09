@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://bnkesy54o3b05"]
+
+[ext_resource type="Script" uid="uid://b65wr5h3w5fs2" path="res://xr_main.gd" id="1_686up"]
+[ext_resource type="PackedScene" uid="uid://bjsmqsg1lepfe" path="res://game.tscn" id="1_mxae5"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="2_686up"]
+[ext_resource type="PackedScene" uid="uid://801oo4p7devm" path="res://addons/spatialize/cube_depth.tscn" id="3_gxa0b"]
+[ext_resource type="PackedScene" uid="uid://df502krdp6gav" path="res://addons/spatialize/input/controller_input.tscn" id="3_qc7dy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_686up"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_qc7dy"]
+sky_material = SubResource("ProceduralSkyMaterial_686up")
+
+[sub_resource type="Environment" id="Environment_gxa0b"]
+background_mode = 1
+background_color = Color(0, 0, 0, 0)
+sky = SubResource("Sky_qc7dy")
+ambient_light_source = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_bb3q2"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vubhu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_glpr6"]
+size = Vector3(1.01, 1, 1.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k2luh"]
+resource_local_to_scene = true
+size = Vector3(1.01, 1, 1.01)
+
+[node name="XRMain" type="Node3D" unique_id=1928151618]
+script = ExtResource("1_686up")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=712299409]
+environment = SubResource("Environment_gxa0b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1241502173]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=675314652]
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D" unique_id=1887044918]
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftController" unique_id=1669580891]
+mesh = SubResource("BoxMesh_bb3q2")
+surface_material_override/0 = SubResource("StandardMaterial3D_vubhu")
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D" unique_id=409639398]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController" unique_id=2042373712]
+mesh = SubResource("BoxMesh_bb3q2")
+surface_material_override/0 = SubResource("StandardMaterial3D_vubhu")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1371585073]
+
+[node name="GameParent" type="Node3D" parent="." unique_id=1300311345]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+
+[node name="Game" parent="GameParent" unique_id=260947182 instance=ExtResource("1_mxae5")]
+
+[node name="PortalMesh" type="MeshInstance3D" parent="." unique_id=641232647]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4895318, -1)
+mesh = SubResource("BoxMesh_glpr6")
+
+[node name="CubeDepth" parent="." unique_id=1421330224 instance=ExtResource("3_gxa0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4895318, -1)
+mesh = SubResource("BoxMesh_k2luh")
+
+[node name="StartXR" parent="." unique_id=867677292 instance=ExtResource("2_686up")]
+enable_passthrough = true
+
+[node name="ControllerInput" parent="." unique_id=100622756 instance=ExtResource("3_qc7dy")]

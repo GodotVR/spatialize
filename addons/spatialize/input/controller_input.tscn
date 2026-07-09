@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://df502krdp6gav"]
+
+[ext_resource type="Script" uid="uid://cudc24jmflsy8" path="res://addons/spatialize/input/controller_input.gd" id="1_bveht"]
+
+[node name="ControllerInput" type="Node" unique_id=100622756]
+script = ExtResource("1_bveht")
