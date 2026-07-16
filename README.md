@@ -15,7 +15,7 @@ In "Project Settings":
 - Check the **XR** -> **Shaders** -> **Enabled** checkbox
 - Restart the Godot editor
 
-Now, we'll need to add some nodes to your the main XR scene. This could be the
+Now, we'll need to add some nodes to your main XR scene. This could be the
 same as the flat main scene, or a new main scene just for XR, which can include
 all the XR-specific nodes, and then perhaps instance your game scene inside of it.
 
@@ -50,7 +50,7 @@ yourself inside your game world!
 
 One challenge may be **scale**.
 
-If you build your game such that `1.0` unit in the game world was the same
+If you built your game such that `1.0` unit in the game world was the same
 as 1 meter in the real world, then you won't have any problems. However,
 3D games frequently use arbitrary scale, and so you may need to place your
 game world in a parent `Node3D` with some scale applied.
@@ -84,7 +84,7 @@ Godot supports stencils since Godot 4.5+, which is the easiest way to make
 a portal. This addon provides a class called `Stencilizer` to make it easier
 to make stencil-based portals.
 
-```
+```gdscript
 const Stencilizer = preload("res://addons/spatialize/stencilizer.gd")
 
 @onready var portal_mesh: MeshInstance3D = %PortalMesh
@@ -116,11 +116,11 @@ diorama.
 
 However, if you were to just run your game like this, it wouldn't really feel
 like it's in your room, because Godot's render distance isn't limited to the
-volume. So long as you're looking through the cube, it will render the full
-far distance of the camera.
+volume. So long as you're looking through the cube-shaped portal, it will render
+the full far distance of the camera.
 
 To fix this, instantiate a `cube_depth.tscn` scene from this addon into your
-main XR scene, and make the mesh the same size and position as your cube shaped
+main XR scene, and make the mesh the same size and position as your cube-shaped
 portal.
 
 This will fill the depth buffer to prevent rendering anything beyond the bounds
