@@ -11,9 +11,9 @@ The first step is just getting your project to start in OpenXR mode.
 
 In "Project Settings":
 
-- Check the **XR** -> **OpenXR** -> **Enabled** checkbox
-- Check the **XR** -> **Shaders** -> **Enabled** checkbox
-- Restart the Godot editor
+1. Check the **XR** -> **OpenXR** -> **Enabled** checkbox
+2. Check the **XR** -> **Shaders** -> **Enabled** checkbox
+3. Restart the Godot editor
 
 Now, we'll need to add some nodes to your main XR scene. This could be the
 same as the flat main scene, or a new main scene just for XR, which can include
@@ -125,6 +125,61 @@ portal.
 
 This will fill the depth buffer to prevent rendering anything beyond the bounds
 of the cube.
+
+OpenXR Spatial Containers
+-------------------------
+
+Spatial containers allow your app to exist in a "3D container" that the user can
+move or resize, and potentially even allow your app to be displayed along with
+other apps (inside their own containers) in the same environment.
+
+Godot supports spatial containers as of Godot 4.8!
+
+While container dimensions are expressed as 3D volumes, making them a natural
+fit for volume rendering as described above, it _can_ make sense to use spatial
+containers with portals (because the user can move them and it potentially
+allows multi-tasking with other apps) or even immersive rendering (because it
+allows your app to dynamically switch between immersive and bounded rendering).
+
+To enable spatial containers in "Project Settings":
+
+1. Check the **XR** -> **OpenXR** -> **Spatial Container** -> **Enabled** checkbox
+2. Set the **Bounds Mode** to either **Bounded** or **Immersive**, depending on
+   which mode you want your app to start in
+3. Set the **Bounds** to the size you'd like your app to use by default
+
+Note: The **Bounds** is just a suggested default and the system may use a
+different size, or allow the user to resize it freely.
+
+Then, in your code, you'll want to detect if the app was started as a spatial
+container, and connect to the `spatial_container_bounds_changed` signal.
+
+```gdscript
+var uses_spatial_container := false
+
+func _ready() -> void:
+  var spatial_container_ext = Engine.get_singleton("OpenXRSpatialContainerExtension")
+  if spatial_container_ext and spatial_container_ext.is_enabled():
+    spatial_container_ext.spatial_container_bounds_changed.connect(_on_spatial_container_bounds_changed)
+    uses_spatial_container = true
+
+
+func _on_spatial_container_bounds_changed(spatial_container_rid: RID, infinite_bounds: bool, bounds_mode: OpenXRSpatialContainerState.BoundsMode, updated_bounds: Vector3) -> void:
+  if bounds_mode == OpenXRSpatialContainerState.BOUNDS_MODE_IMMERSIVE:
+    # Setup your app for running immersively.
+    pass
+  else:
+    # Setup your app for running bounded, in particular, respond to the updated bounds dimensions.
+    pass
+```
+
+When in bounded mode, you'll want to reposition your `XROrigin3D` to be where
+you want the center of your spatial container to be. You can also use the
+updated bounds to scale your content to fit within the container.
+
+See the [3D Endless Runner](https://github.com/GodotVR/3d-endless-runner) demo,
+which can run both with and without spatial containers, as well as dynamically
+switch between immersive, portal or volume rendering.
 
 User Interface
 --------------
