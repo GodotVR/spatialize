@@ -4,6 +4,13 @@ Spatialize
 **Spatialize** is a set of utilities for converting flat-screen 3D games into
 immersive or semi-immersive XR experiences.
 
+For an example, see the [3D Endless Runner](https://github.com/GodotVR/3d-endless-runner) demo,
+which was ported to XR using the Spatialize addon:
+
+<a href="https://www.youtube.com/watch?v=AWbsfYF4rYU">
+  <img src="https://img.youtube.com/vi/AWbsfYF4rYU/maxresdefault.jpg" alt="Watch the video" width="640">
+</a>
+
 First Steps
 -----------
 
